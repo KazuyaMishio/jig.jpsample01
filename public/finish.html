@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>finish</title>
+</head>
+<body>
+    <h1>しりとり終わり！</h1>
+    <p>miss!</p>
+    <button id="flag">メインページに戻る</button>
+    <script>
+        //リセットと動作自体は同じ
+        document.getElementById('flag').addEventListener('click', async function() {
+            try {
+                const response = await fetch(
+                    "/shiritori",
+                    {
+                        method: "RESET", // HTTPメソッドをPOSTに修正
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ resetWord: "しりとり" })
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
